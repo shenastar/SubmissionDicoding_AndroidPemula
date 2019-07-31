@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,7 +32,7 @@ public class FavoriteAnimalAdapter extends RecyclerView.Adapter<FavoriteAnimalAd
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardViewViewHolder cardViewViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final CardViewViewHolder cardViewViewHolder, int i) {
         final Animal animal = listAnimal.get(i);
         Glide.with(cardViewViewHolder.itemView.getContext())
                 .load(animal.getPhoto())
@@ -39,9 +40,16 @@ public class FavoriteAnimalAdapter extends RecyclerView.Adapter<FavoriteAnimalAd
                 .into(cardViewViewHolder.imgPhoto);
         cardViewViewHolder.tvName.setText(animal.getName());
         cardViewViewHolder.tvInfo.setText(animal.getInfo());
+        cardViewViewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallBack.onItemClicked(listAnimal.get(cardViewViewHolder.getAdapterPosition()));
+            }
+        });
         cardViewViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onItemClickCallBack.onItemClickBack(listAnimal.get(cardViewViewHolder.getAdapterPosition()));
             }
         });
     }
@@ -61,14 +69,25 @@ public class FavoriteAnimalAdapter extends RecyclerView.Adapter<FavoriteAnimalAd
 
         ImageView imgPhoto;
         TextView tvName, tvInfo;
+        Button btnRemove;
 
         public CardViewViewHolder(@NonNull View itemView) {
             super(itemView);
             imgPhoto = itemView.findViewById(R.id.img_item_photo);
             tvName = itemView.findViewById(R.id.tv_item_name);
             tvInfo = itemView.findViewById(R.id.tv_item_info);
+            btnRemove = itemView.findViewById(R.id.btn_set_favorite);
         }
     }
-    public ArrayList<Animal> lisFav = new ArrayList<>();
+    private onItemClickCallBack onItemClickCallBack;
+
+    public void setOnItemClickCallBack(FavoriteAnimalAdapter.onItemClickCallBack onItemClickCallBack) {
+        this.onItemClickCallBack = onItemClickCallBack;
+    }
+
+    public interface onItemClickCallBack{
+        void onItemClicked(Animal data);
+        void onItemClickBack(Animal data);
+    }
 
 }

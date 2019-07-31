@@ -1,8 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailActivity">
+    android:background="@android:color/white">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_detail_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@android:color/darker_gray" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_detail_name"
+            style="@style/TextContent.Black"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="8dp"
+            android:text="@string/detail_name"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/tv_detail_latin"
+            style="@style/TextContent.LatinName"
+            android:textStyle="italic"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/detail_latinName" />
+
+        <TextView
+            android:id="@+id/tv_detail_info"
+            style="@style/TextContent"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:lineSpacingMultiplier="1"
+            android:text="@string/detail_info"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            style="@style/TextContent.LatinName"
+            android:layout_marginBottom="8dp"
+            android:text="@string/ket" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/TextSpec.Field"
+                    android:text="@string/habitat" />
+
+                <TextView
+                    android:id="@+id/tv_detail_habitat"
+                    style="@style/TextSpec.Value"
+                    android:text="@string/detail_habitat" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/TextSpec.Field"
+                    android:text="@string/KlasifikasiIlmiah" />
+
+                <TextView
+                    android:id="@+id/tv_detail_ilmiah"
+                    style="@style/TextSpec.Value"
+                    android:text="@string/detail_ilmiah" />
+            </TableRow>
+        </TableLayout>
+        <Button
+            android:id="@+id/btn_set_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:text="@string/make_favorite"
+            style="@style/ButtonGeneral"/>
+    </LinearLayout>
+</ScrollView>

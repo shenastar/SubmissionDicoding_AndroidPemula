@@ -3,7 +3,7 @@ package com.shena.submissiondicoding_androidpemula;
 import java.io.Serializable;
 
 public class Animal implements Serializable{
-    private String name, info, photo, favorite;
+    private String name, info, photo, latin, habitat, klasifikasiIlmiah;
 
     public String getName() {
         return name;
@@ -29,11 +29,27 @@ public class Animal implements Serializable{
         this.photo = photo;
     }
 
-    public String getFavorite() {
-        return favorite;
+    public String getLatin() {
+        return latin;
     }
 
-    public void setFavorite(String favorite) {
-        this.favorite = favorite;
+    public void setLatin(String latin) {
+        this.latin = latin;
+    }
+
+    public String getHabitat() {
+        return habitat;
+    }
+
+    public void setHabitat(String habitat) {
+        this.habitat = habitat;
+    }
+
+    public String getKlasifikasiIlmiah() {
+        return klasifikasiIlmiah;
+    }
+
+    public void setKlasifikasiIlmiah(String klasifikasiIlmiah) {
+        this.klasifikasiIlmiah = klasifikasiIlmiah;
     }
 }

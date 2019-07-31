@@ -2,7 +2,6 @@ package com.shena.submissiondicoding_androidpemula;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     private RecyclerView rvAnimal;
     private ArrayList<Animal> list = new ArrayList<>(), tampungFavorite = new ArrayList<>();
     private AnimalData favorite = new AnimalData();
-    private FavoriteAnimalAdapter favoriteAnimalAdapter = new FavoriteAnimalAdapter(null);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +59,21 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     private void showFavoriteAnimal(){
         rvAnimal.setLayoutManager(new LinearLayoutManager(this));
-        favoriteAnimalAdapter = new FavoriteAnimalAdapter(tampungFavorite);
+        FavoriteAnimalAdapter favoriteAnimalAdapter = new FavoriteAnimalAdapter(tampungFavorite);
         rvAnimal.setAdapter(favoriteAnimalAdapter);
+        favoriteAnimalAdapter.setOnItemClickCallBack(new FavoriteAnimalAdapter.onItemClickCallBack() {
+            @Override
+            public void onItemClicked(Animal data) {
+                removeFavorite(data);
+                Toast.makeText(MainActivity.this,data.getName()+" Berhasil dihapus dari Favorite"
+                        ,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemClickBack(Animal data) {
+                showSelectedAnimal(data);
+            }
+        });
     }
 
     public void showSelectedAnimal(Animal data){
@@ -81,6 +93,11 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         }
     }
 
+    public void removeFavorite(Animal data){
+        tampungFavorite.remove(data);
+        showFavoriteAnimal();
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -93,16 +110,16 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     protected void onStart() {
         super.onStart();
         SharedPreferences preferences = getSharedPreferences("FavoriteID",0);
-        SharedPreferences.Editor editor = preferences.edit();
         String name = preferences.getString("nameAnimFav","null");
         String info = preferences.getString("infoAnimFav","null");
         String img = preferences.getString("imgAnimFav","null");
-        Log.d("add", name);
+        String latin = preferences.getString("latinAnimFav","null");
+        String habitat = preferences.getString("habitatAnimFav","null");
+        String ilmiah = preferences.getString("ilmiahAnimFav","null");
         boolean sameName = false;
         if(name != "null"){
             Animal animFav = new Animal();
             for(int i = 0; i < tampungFavorite.size(); i++){
-                Log.d("add Arrayceksame", name+" dan "+tampungFavorite.get(i).getName());
                 if(name.equals(tampungFavorite.get(i).getName())){
                     sameName = true;
                 }
@@ -111,9 +128,11 @@ public class MainActivity extends AppCompatActivity implements Serializable{
                 animFav.setName(name);
                 animFav.setInfo(info);
                 animFav.setPhoto(img);
+                animFav.setLatin(latin);
+                animFav.setHabitat(habitat);
+                animFav.setKlasifikasiIlmiah(ilmiah);
                 tampungFavorite.add(animFav);
             }
-            Log.d("add","same"+sameName+"");
         }
     }
 
