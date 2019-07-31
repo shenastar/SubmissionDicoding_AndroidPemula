@@ -2,6 +2,7 @@ package com.shena.submissiondicoding_androidpemula;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,6 @@ public class ListAnimalAdapter extends RecyclerView.Adapter<ListAnimalAdapter.Li
 
         public ListViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imgPhoto = itemView.findViewById(R.id.img_item_photo);
             tvName = itemView.findViewById(R.id.tv_item_name);
             tvInfo = itemView.findViewById(R.id.tv_item_info);
